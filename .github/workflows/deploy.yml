@@ -19,6 +19,8 @@ jobs:
         run: |
           npm install
           npm run build
+          # Ensure CNAME is in the dist folder
+          cp public/CNAME dist/CNAME
 
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@v4
