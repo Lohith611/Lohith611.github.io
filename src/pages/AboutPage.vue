@@ -9,7 +9,7 @@
             Hello! I'm <strong>T Lohith</strong>, a Cybersecurity Engineer passionate about OT/ICS security and Blue Team operations.
           </p>
           <p>
-            I specialize in SOC/SIEM (Splunk, Microsoft Sentinel), OT/ICS security (Modbus TCP, SCADA architecture), malware analysis, and network security. I am dedicated to protecting critical infrastructure and detecting advanced threats.
+            I specialize in SOC/SIEM operations, OT/ICS security (Modbus TCP, SCADA architecture), malware analysis (static + dynamic with FlareVM/FakeNet-NG), and network security. My live Modbus TCP honeypot on OVHcloud VPS has been indexed by Shodan and actively collects real attacker sessions with 13 MITRE ATT&CK for ICS detection rules.
           </p>
           <p>
             Currently, I am pursuing my M.Tech in Networks & Cybersecurity at Amity University Gurugram, where I am working on a live-deployed Modbus TCP honeypot for ICS threat research.
@@ -31,7 +31,7 @@
 const skills = [
   'Splunk', 'Microsoft Sentinel', 'ELK Stack', 'SOC/SIEM',
   'Modbus TCP', 'DNP3', 'IEC 104', 'SCADA Architecture',
-  'MITRE ATT&CK for ICS', 'FlareVM', 'REMnux', 'YARA Rule Writing',
+  'MITRE ATT&CK for ICS', 'FlareVM', 'FakeNet-NG', 'YARA Rule Writing',
   'Wireshark', 'Nmap', 'Scapy', 'Snort/Suricata',
   'VLAN Segmentation', '802.11 Wireless Security', 'Metasploit', 'Burp Suite',
   'Python (Advanced)', 'Flask', 'Docker', 'REST APIs'

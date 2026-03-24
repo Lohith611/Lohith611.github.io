@@ -1,6 +1,6 @@
 <template>
   <div class="chat-bot" :class="{ open: isOpen }">
-    <div class="chat-header" @click="toggleChat">
+    <div class="chat-header" @click="handleClose">
       <div class="header-info">
         <div class="bot-avatar"></div>
         <div class="bot-status">
@@ -8,7 +8,7 @@
           <span class="status-online">Online</span>
         </div>
       </div>
-      <button class="close-btn">
+      <button class="close-btn" @click.stop="handleClose">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M19 9l-7 7-7-7" />
         </svg>
@@ -51,9 +51,16 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, nextTick, onMounted } from 'vue'
+import { ref, reactive, nextTick, watch } from 'vue'
 
-const isOpen = ref(false)
+const props = defineProps<{
+  isOpen: boolean
+}>()
+
+const emit = defineEmits<{
+  (e: 'close-chat'): void
+}>()
+
 const userInput = ref('')
 const isTyping = ref(false)
 const messageContainer = ref<HTMLElement | null>(null)
@@ -61,25 +68,31 @@ const messageContainer = ref<HTMLElement | null>(null)
 const messages = reactive([
   {
     type: 'bot',
-    text: "Hi! I'm T Lohith's AI assistant. I can answer questions about his skills, projects, education, and experience. How can I help you today?"
+    text: "Hi! I'm T Lohith's AI assistant. I can answer questions about my skills, projects, education, and experience. How can I help you today?"
   }
 ])
 
 const responses: Record<string, string> = {
-  skills: "T Lohith is skilled in SOC/SIEM (Splunk, Microsoft Sentinel), OT/ICS security (Modbus TCP, SCADA architecture), malware analysis (FlareVM, REMnux), and network security (Scapy, Nmap). He's also proficient in Python and tools like Docker, Metasploit, and Wireshark.",
-  projects: "T Lohith has worked on critical projects like:\n\n1. OT/ICS Modbus TCP Honeypot (Live Deployed, MITRE ATT&CK for ICS)\n2. OT/ICS SIEM Dashboard (Production SIEM with ML anomaly detection)\n3. Malware Analysis Lab (Static & Dynamic analysis of real samples)\n4. Network Traffic Analyzer (OT protocol fingerprinting)",
-  education: "T Lohith is pursuing an M.Tech in Networks & Cybersecurity from Amity University Gurugram (2024-2026). He also holds a B.Tech in Cybersecurity, IoT & Blockchain from Siddharth Institute of Engineering & Technology (2019-2024).",
-  contact: "You can reach T Lohith at:\n Email: itslohith116@gmail.com\n LinkedIn: linkedin.com/in/its-lohith-944909318\n GitHub: github.com/Lohith115\n Portfolio: tlohith.me",
-  experience: "T Lohith's experience includes:\n- Ethical Hacking Intern at InLighnX Global Pvt. Ltd. (Jul-Aug 2025)\n- Full Stack Python Developer Intern at Aavanto Pvt. Ltd. (Oct-Dec 2023)",
-  about: "T Lohith is a Cybersecurity Engineer specializing in OT/ICS security and Blue Team operations. He is passionate about protecting critical infrastructure and has developed live threat detection systems using MITRE ATT&CK frameworks.",
-  certificates: "T Lohith holds certifications including:\n- Google Cybersecurity Professional Certificate\n- CompTIA Security+ (In Progress)\n- TryHackMe PRO (SOC L1, Blue Team)\n- HackerArise: SCADA Security, Web App Hacking, OSINT",
-  github: "You can find T Lohith's projects on GitHub at github.com/Lohith115. His repositories include work on honeypots, SIEM dashboards, and network analysis tools!",
-  blog: "T Lohith shares technical insights on cybersecurity and OT/ICS security. You can find his portfolio and related technical info at tlohith.me."
+  skills: "I am skilled in SOC/SIEM operations (Splunk, Microsoft Sentinel), OT/ICS security (Modbus TCP, SCADA architecture), malware analysis (FlareVM, FakeNet-NG), and network security. I also have advanced proficiency in Python and tools like Docker, Scapy, and Wireshark.",
+  projects: "Some of my key projects include:\n\n1. OT/ICS Modbus TCP Honeypot: Live-deployed system collecting real attacker data with 13 MITRE ATT&CK for ICS rules.\n2. OT/ICS SIEM Dashboard: Production SIEM with ML anomaly detection and automated IR playbooks.\n3. Malware Analysis Lab: Static and dynamic analysis of real malware samples.\n4. Threat Intelligence Aggregator: Multi-source pipeline for IP and domain reputation scoring.\n5. Web Vulnerability Scanner: Async OWASP Top 10 scanner.",
+  education: "I am currently pursuing my M.Tech in Networks & Cybersecurity at Amity University Gurugram (2024-2026). I hold a B.Tech in Cybersecurity, IoT & Blockchain from Siddharth Institute of Engineering & Technology (2019-2024).",
+  contact: "You can reach me at:\n Email: itslohith116@gmail.com\n LinkedIn: linkedin.com/in/lohith-t-944909318\n GitHub: github.com/Lohith115\n Portfolio: tlohith.me",
+  experience: "My experience includes an Ethical Hacking internship at InLighnX Global Pvt. Ltd. and a Full Stack Python Developer internship at Aavanto Pvt. Ltd.",
+  about: "I am a Cybersecurity Engineer specializing in OT/ICS security and Blue Team operations. I am passionate about protecting critical infrastructure and detecting advanced threats using real-world data and MITRE frameworks.",
+  certificates: "My certifications include the Google Cybersecurity Professional Certificate, and I am currently working towards CompTIA Security+. I also have extensive experience on TryHackMe (SOC L1, Blue Team).",
+  github: "Check out my GitHub at github.com/Lohith115 for my work on honeypots, SIEM dashboards, threat intel aggregators, and more!",
+  blog: "I share technical insights on cybersecurity and OT/ICS security. You can find more info on my portfolio site at tlohith.me."
 }
 
-function toggleChat() {
-  isOpen.value = !isOpen.value
+function handleClose() {
+  emit('close-chat')
 }
+
+watch(() => props.isOpen, (newVal) => {
+  if (newVal) {
+    scrollToBottom()
+  }
+})
 
 async function sendMessage() {
   if (!userInput.value.trim()) return
@@ -121,7 +134,7 @@ function getBotResponse(input: string): string {
   } else if (lowerInput.includes('blog')) {
     return responses.blog
   } else {
-    return "I'm here to help! You can ask me about T Lohith's skills, projects, education, experience, certifications, or how to contact him. What would you like to know?"
+    return "I'm here to help! You can ask me about my skills, projects, education, experience, certifications, or how to contact me. What would you like to know?"
   }
 }
 

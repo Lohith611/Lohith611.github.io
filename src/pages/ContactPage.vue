@@ -6,7 +6,7 @@
       <div class="contact-layout">
         <div class="contact-info">
           <h2>Let's Connect!</h2>
-          <p>Feel free to reach out for collaborations, opportunities, or just a friendly chat about AI and technology.</p>
+          <p>Feel free to reach out for cybersecurity opportunities, collaborations, or to discuss OT/ICS security and Blue Team operations.</p>
 
           <div class="contact-methods">
             <div class="contact-item">
@@ -19,7 +19,7 @@
             <div class="contact-item">
               <div>
                 <h4>LinkedIn</h4>
-                <a href="https://linkedin.com/in/its-lohith-944909318" target="_blank">linkedin.com/in/its-lohith-944909318</a>
+                <a href="https://www.linkedin.com/in/lohith-t-944909318/" target="_blank">linkedin.com/in/lohith-t-944909318</a>
               </div>
             </div>
 

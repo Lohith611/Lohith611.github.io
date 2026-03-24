@@ -10,7 +10,7 @@
           <span class="cursor">|</span>
         </p>
         <p class="hero-description">
-          M.Tech Cybersecurity candidate specializing in OT/ICS security and Blue Team operations — including a live-deployed Modbus TCP honeypot and a production SIEM with ML anomaly detection.
+          M.Tech Cybersecurity candidate specializing in OT/ICS security and Blue Team operations — live honeypot collecting real attacker data, 6 production security tools, and hands-on malware analysis.
         </p>
         <div class="hero-buttons">
           <button class="primary-btn" @click="$emit('navigate', 'projects')">
@@ -33,12 +33,13 @@
 
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue'
+import profileImg from '../assets/WhatsApp Image 2025-07-23 at 13.02.09_aaf6a67a.jpg'
 
 defineEmits<{
   (e: 'navigate', page: string): void
 }>()
 
-const profileImage = ref('')
+const profileImage = ref(profileImg)
 const currentTitle = ref('')
 const titles = ['Cybersecurity Engineer', 'OT/ICS & Blue Team Security', 'SOC Analyst']
 let currentIndex = 0
